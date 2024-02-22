@@ -1,9 +1,9 @@
 package biz.zhizuo.angular.ask
 
+import biz.zhizuo.angular.ask.utils.SpringBootTestInContainers
 import org.junit.jupiter.api.Test
-import org.springframework.boot.test.context.SpringBootTest
 
-@SpringBootTest
+@SpringBootTestInContainers
 class AskApplicationTests {
 
     @Test
