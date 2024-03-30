@@ -5,8 +5,4 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface ParagraphRepository : JpaRepository<Paragraph, String> {
-    fun findAllByOriginalEmbeddingAndTranslationEmbeddingOrderByArticleUrlAscOrdinalAsc(
-        originalEmbedding: FloatArray,
-        translationEmbedding: FloatArray
-    ): List<Paragraph>
 }
