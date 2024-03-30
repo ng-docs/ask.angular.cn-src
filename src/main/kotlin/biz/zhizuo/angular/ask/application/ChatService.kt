@@ -37,6 +37,8 @@ class ChatService(
                 Answer(nextId(), "抱歉，我最多只能处理 1024 字节的问题。", AnswerType.Error)
             )
         }
+
+        logger.info("正在进行精确查询……")
         val trimmedQuestion = question.trim()
         findExactly(trimmedQuestion).firstOrNull()?.let {
             logger.info("为【$trimmedQuestion】找到一个精确匹配的答案")
@@ -47,6 +49,7 @@ class ChatService(
         }
 
         try {
+            logger.info("正在进行模糊查询……")
             val questionEmbedding = getQuestionEmbedding(trimmedQuestion)
             val nearest = findFuzzy(questionEmbedding)
             if (nearest.isNotEmpty()) {
@@ -56,6 +59,7 @@ class ChatService(
                 })
             }
 
+            logger.info("正在通过大模型生成答案……")
             val prompt = Prompt(
                 listOf(
                     UserMessage(
