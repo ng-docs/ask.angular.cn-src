@@ -1,8 +1,10 @@
 package biz.zhizuo.angular.ask.infrastructure.ai
 
+import com.google.auth.oauth2.GoogleCredentials
 import org.springframework.http.MediaType
 import org.springframework.web.reactive.function.BodyInserters
 import org.springframework.web.reactive.function.client.WebClient
+import java.io.FileInputStream
 import java.time.Duration
 
 class GoogleAiPlatformClient() {
@@ -21,7 +23,7 @@ class GoogleAiPlatformClient() {
     }
 
     fun predicate(request: Request, model: String): Response {
-        val token = executeCommand("gcloud auth print-access-token")
+        val token = getAccessToken()
         val client = WebClient.builder()
             .baseUrl("https://us-central1-aiplatform.googleapis.com/v1/projects/ralph-gde/locations/us-central1/publishers/google/models/${model}:predict")
             .defaultHeader(
@@ -40,5 +42,14 @@ class GoogleAiPlatformClient() {
             .block()
 
         return result!!
+    }
+
+    private fun getAccessToken(): String {
+        val credentials =
+            GoogleCredentials.fromStream(FileInputStream("./secrets/application_default_credentials.json"))
+
+        credentials.refreshIfExpired()
+        // 获取访问令牌
+        return credentials.accessToken.tokenValue
     }
 }

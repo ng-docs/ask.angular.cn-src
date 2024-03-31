@@ -7,29 +7,6 @@ import org.springframework.ai.embedding.EmbeddingRequest
 import org.springframework.ai.embedding.EmbeddingResponse
 import org.springframework.cache.annotation.Cacheable
 import org.springframework.stereotype.Component
-import java.io.BufferedReader
-import java.io.InputStreamReader
-
-fun executeCommand(command: String): String {
-    val process = ProcessBuilder(command.split("\\s".toRegex()))
-        .redirectOutput(ProcessBuilder.Redirect.PIPE)
-        .start()
-
-    val reader = BufferedReader(InputStreamReader(process.inputStream))
-    val output = StringBuilder()
-    var line: String?
-
-    while (reader.readLine().also { line = it } != null) {
-        output.append(line).append("\n")
-    }
-
-    val exitCode = process.waitFor()
-    if (exitCode != 0) {
-        throw RuntimeException("Command execution failed with exit code $exitCode")
-    }
-
-    return output.toString().trim()
-}
 
 @Component
 class GoogleAiPlatformEmbeddingClient(private val platformClient: GoogleAiPlatformClient) : EmbeddingClient {

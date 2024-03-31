@@ -71,6 +71,11 @@
             <groupId>org.springframework.ai</groupId>
             <artifactId>spring-ai-vertex-ai-gemini-spring-boot-starter</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.google.auth</groupId>
+            <artifactId>google-auth-library-oauth2-http</artifactId>
+            <version>1.23.0</version>
+        </dependency>
 
         <dependency>
             <groupId>org.postgresql</groupId>
@@ -142,16 +147,6 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-contract-maven-plugin</artifactId>
-                <version>4.1.2</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <testFramework>JUNIT5</testFramework>
-                    <testMode>WEBTESTCLIENT</testMode>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
