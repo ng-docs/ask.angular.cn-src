@@ -32,7 +32,4 @@ build/
 ### VS Code ###
 .vscode/
 
-application.yaml
-application-*.yaml
-
 secrets/

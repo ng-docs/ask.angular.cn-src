@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: ask
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  jackson:
+    default-property-inclusion: non_null
+  datasource:
+    url: ${SPRING_DATASOURCE_URL_BASE}/angular
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+  ai:
+    vertex:
+      ai:
+        gemini:
+          project-id: ralph-gde
+          location: us-central1
+          credentials-uri: file:./secrets/application_default_credentials.json
+          chat:
+            options:
+              model: "gemini-1.0-pro"
+              maxOutputTokens: 8192
+              temperature: 0
+
+logging:
+  charset:
+    console: UTF-8
+    file: UTF-8
