@@ -106,7 +106,7 @@ class ChatService(
 
     @Async
     internal fun findFuzzy(questionEmbedding: FloatArray) =
-        chatLogRepository.findAllByQuestionSimilarity(questionEmbedding)
+        chatLogRepository.findAllByQuestionSimilarity(questionEmbedding, 0.99)
 
     @Async
     internal fun findExactly(trimmedQuestion: String) = chatLogRepository.findAllByQuestion(trimmedQuestion)

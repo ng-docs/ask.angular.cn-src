@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository
 interface ChatLogRepository : JpaRepository<ChatLog, String> {
     fun findAllByQuestion(question: String): List<ChatLog>
 
-    @Query("from ChatLog where inner_product(questionEmbedding, :questionEmbedding) > 0.99 order by inner_product(questionEmbedding, :questionEmbedding) desc limit 10")
-    fun findAllByQuestionSimilarity(questionEmbedding: FloatArray): List<ChatLog>
+    @Query("from ChatLog where inner_product(questionEmbedding, :questionEmbedding) > :maxDistance order by inner_product(questionEmbedding, :questionEmbedding) desc limit 10")
+    fun findAllByQuestionSimilarity(questionEmbedding: FloatArray, maxDistance: Double): List<ChatLog>
 }
